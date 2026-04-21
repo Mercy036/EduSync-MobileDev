@@ -490,3 +490,5 @@ For issues, questions, or suggestions, please reach out to the development team.
 ---
 
 **EduSync** - Making campus life less chaotic, one feature at a time. 🎓
+#   E d u S y n c - M o b i l e D e v  
+ 

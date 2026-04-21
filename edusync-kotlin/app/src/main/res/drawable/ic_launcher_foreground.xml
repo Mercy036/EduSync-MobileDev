@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Stylized 'E' for EduSync in Gold -->
+    <path
+        android:fillColor="#D4A23A"
+        android:pathData="M30,30 h48 v10 h-38 v14 h30 v10 h-30 v14 h38 v10 h-48 z" />
+</vector>
