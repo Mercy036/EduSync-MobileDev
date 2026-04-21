@@ -50,3 +50,7 @@ local.properties
 captures/
 .externalNativeBuild/
 .cxx/
+
+# Firebase — generated at build time from local.properties secrets
+# See: edusync-kotlin/local.properties.example
+edusync-kotlin/app/google-services.json

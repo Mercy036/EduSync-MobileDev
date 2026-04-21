@@ -1,3 +1,84 @@
+import java.util.Properties
+
+// ─── Load local.properties ────────────────────────────────────────────────────
+val localProps = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) load(f.inputStream())
+}
+
+fun localProp(key: String): String =
+    localProps.getProperty(key)
+        ?: error("Missing '$key' in local.properties. See local.properties.example.")
+
+// ─── Task: generate google-services.json from local.properties ────────────────
+val generateGoogleServicesJson by tasks.registering {
+    description = "Generates app/google-services.json from local.properties secrets."
+    group = "firebase"
+
+    doLast {
+        val projectNumber = localProp("FIREBASE_PROJECT_NUMBER")
+        val projectId     = localProp("FIREBASE_PROJECT_ID")
+        val storageBucket = localProp("FIREBASE_STORAGE_BUCKET")
+        val appId         = localProp("FIREBASE_MOBILESDK_APP_ID")
+        val packageName   = localProp("FIREBASE_PACKAGE_NAME")
+        val clientId      = localProp("FIREBASE_CLIENT_ID")
+        val apiKey        = localProp("FIREBASE_API_KEY")
+
+        val json = """
+{
+  "project_info": {
+    "project_number": "$projectNumber",
+    "project_id": "$projectId",
+    "storage_bucket": "$storageBucket"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "$appId",
+        "android_client_info": {
+          "package_name": "$packageName"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "$clientId",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "$apiKey"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "$clientId",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
+        """.trimIndent()
+
+        val outFile = file("google-services.json")
+        outFile.writeText(json)
+        println("✅ google-services.json generated from local.properties")
+    }
+}
+
+// Wire the generation task to run before every preBuild
+tasks.whenTaskAdded {
+    if (name == "preBuild") {
+        dependsOn(generateGoogleServicesJson)
+    }
+}
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")

@@ -1,0 +1,17 @@
+## ─── local.properties.example ────────────────────────────────────────────────
+## Copy this file to local.properties and fill in the real values.
+## Obtain values from the Firebase Console → Project Settings → Your apps.
+## NEVER commit local.properties to git.
+
+# sdk.dir=C\:\\Users\\YourName\\AppData\\Local\\Android\\Sdk
+
+## Firebase / google-services.json secrets
+## (ask a team member or check the CI secret store for values)
+
+FIREBASE_PROJECT_NUMBER=
+FIREBASE_PROJECT_ID=
+FIREBASE_STORAGE_BUCKET=
+FIREBASE_MOBILESDK_APP_ID=
+FIREBASE_PACKAGE_NAME=com.edu.sync
+FIREBASE_CLIENT_ID=
+FIREBASE_API_KEY=
